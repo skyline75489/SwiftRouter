@@ -33,6 +33,15 @@ XCTAssertEqual(vc.username, "hello")
 XCTAssertEqual(vc.password, "123")
 ```
 
+
+Push custom ViewController:
+
+```swift
+router.routeURL("/user/123", navigationController: self.navigationController!)
+// The custom ViewController will be pushed with parameters.
+
+```
+
 ### Routing handler
 
 Define your custom handler function and map it to URL:
@@ -51,7 +60,8 @@ router.map("/user/add", handler: { (params:[String: String]?) -> (Bool) in
 Call the handler from router:
 
 ```swift
-router.routeURL("/user/add?username=hello&password=123") // The handler function will be called with parameters
+router.routeURL("/user/add?username=hello&password=123") 
+// The handler function will be called with parameters.
 ```
 
 ## License
