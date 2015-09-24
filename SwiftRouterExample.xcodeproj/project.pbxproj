@@ -13,7 +13,6 @@
 		2D39081F1BB403C1002296E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D39081E1BB403C1002296E1 /* Assets.xcassets */; };
 		2D3908221BB403C1002296E1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D3908201BB403C1002296E1 /* LaunchScreen.storyboard */; };
 		2D39082D1BB403C1002296E1 /* SwiftRouterExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D39082C1BB403C1002296E1 /* SwiftRouterExampleTests.swift */; };
-		2D3908381BB403C1002296E1 /* SwiftRouterExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3908371BB403C1002296E1 /* SwiftRouterExampleUITests.swift */; };
 		2D73AB1B1BB4043400C93F5F /* StoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D73AB181BB4043300C93F5F /* StoryListViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2D73AB1C1BB4043400C93F5F /* StoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D73AB191BB4043300C93F5F /* StoryViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2D73AB1D1BB4043400C93F5F /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D73AB1A1BB4043300C93F5F /* UserViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -49,12 +48,10 @@
 		2D39082C1BB403C1002296E1 /* SwiftRouterExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftRouterExampleTests.swift; sourceTree = "<group>"; };
 		2D39082E1BB403C1002296E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D3908331BB403C1002296E1 /* SwiftRouterExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftRouterExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D3908371BB403C1002296E1 /* SwiftRouterExampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftRouterExampleUITests.swift; sourceTree = "<group>"; };
-		2D3908391BB403C1002296E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2D73AB181BB4043300C93F5F /* StoryListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryListViewController.swift; sourceTree = "<group>"; };
 		2D73AB191BB4043300C93F5F /* StoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryViewController.swift; sourceTree = "<group>"; };
 		2D73AB1A1BB4043300C93F5F /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
-		2D73AB1E1BB4043C00C93F5F /* SwiftRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftRouter.swift; path = SwiftRouter/SwiftRouter.swift; sourceTree = SOURCE_ROOT; };
+		2D73AB1E1BB4043C00C93F5F /* SwiftRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftRouter.swift; path = Source/SwiftRouter.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +84,6 @@
 			children = (
 				2D3908161BB403C1002296E1 /* SwiftRouterExample */,
 				2D39082B1BB403C1002296E1 /* SwiftRouterExampleTests */,
-				2D3908361BB403C1002296E1 /* SwiftRouterExampleUITests */,
 				2D3908151BB403C1002296E1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -126,15 +122,6 @@
 				2D39082E1BB403C1002296E1 /* Info.plist */,
 			);
 			path = SwiftRouterExampleTests;
-			sourceTree = "<group>";
-		};
-		2D3908361BB403C1002296E1 /* SwiftRouterExampleUITests */ = {
-			isa = PBXGroup;
-			children = (
-				2D3908371BB403C1002296E1 /* SwiftRouterExampleUITests.swift */,
-				2D3908391BB403C1002296E1 /* Info.plist */,
-			);
-			path = SwiftRouterExampleUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,7 +275,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D3908381BB403C1002296E1 /* SwiftRouterExampleUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
