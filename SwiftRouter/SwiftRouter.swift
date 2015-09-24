@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 class RouteEntry {
     var pattern: String? = nil
@@ -154,6 +154,11 @@ class SwiftRouter {
         if let handler = self.matchHandler(route) {
             let params = self.paramsInRoute(route)
             handler(params)
+        }
+    }
+    func routeURL(route:String, navigationController: UINavigationController) {
+        if let vc = self.matchController(route) {
+            navigationController.pushViewController(vc as! UIViewController, animated: true)
         }
     }
 }
