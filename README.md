@@ -1,10 +1,19 @@
 SwiftRouter
 ===========
 
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
 A URL Router for iOS, written in Swift 2.0, inspired by [HHRouter](https://github.com/Huohua/HHRouter) and [JLRoutes](https://github.com/joeldev/JLRoutes).
 
-## Usage
+## Installation
 
+SwiftRouter is compatible with [Carthage](https://github.com/Carthage/Carthage). Add it to your `Cartfile`:
+
+    github "skyline75489/SwiftRouter"
+
+
+## Usage
+   
 ### Routing ViewController
 
 Define properties in your custom ViewController:
