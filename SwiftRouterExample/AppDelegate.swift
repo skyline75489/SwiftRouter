@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
-        let router = SwiftRouter.sharedInstance
+        let router = Router.sharedInstance
         router.map("/user/:userId", controllerClass: UserViewController.self)
         return true
     }

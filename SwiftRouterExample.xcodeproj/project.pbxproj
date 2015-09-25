@@ -12,29 +12,11 @@
 		2D39081D1BB403C1002296E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D39081B1BB403C1002296E1 /* Main.storyboard */; };
 		2D39081F1BB403C1002296E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D39081E1BB403C1002296E1 /* Assets.xcassets */; };
 		2D3908221BB403C1002296E1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D3908201BB403C1002296E1 /* LaunchScreen.storyboard */; };
-		2D39082D1BB403C1002296E1 /* SwiftRouterExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D39082C1BB403C1002296E1 /* SwiftRouterExampleTests.swift */; };
 		2D73AB1B1BB4043400C93F5F /* StoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D73AB181BB4043300C93F5F /* StoryListViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2D73AB1C1BB4043400C93F5F /* StoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D73AB191BB4043300C93F5F /* StoryViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2D73AB1D1BB4043400C93F5F /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D73AB1A1BB4043300C93F5F /* UserViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2D73AB1F1BB4043C00C93F5F /* SwiftRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D73AB1E1BB4043C00C93F5F /* SwiftRouter.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		2D3908291BB403C1002296E1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2D39080C1BB403C1002296E1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2D3908131BB403C1002296E1;
-			remoteInfo = SwiftRouterExample;
-		};
-		2D3908341BB403C1002296E1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2D39080C1BB403C1002296E1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 2D3908131BB403C1002296E1;
-			remoteInfo = SwiftRouterExample;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		2D3908141BB403C1002296E1 /* SwiftRouterExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftRouterExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,10 +26,6 @@
 		2D39081E1BB403C1002296E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2D3908211BB403C1002296E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2D3908231BB403C1002296E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2D3908281BB403C1002296E1 /* SwiftRouterExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftRouterExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D39082C1BB403C1002296E1 /* SwiftRouterExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftRouterExampleTests.swift; sourceTree = "<group>"; };
-		2D39082E1BB403C1002296E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2D3908331BB403C1002296E1 /* SwiftRouterExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftRouterExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D73AB181BB4043300C93F5F /* StoryListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryListViewController.swift; sourceTree = "<group>"; };
 		2D73AB191BB4043300C93F5F /* StoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryViewController.swift; sourceTree = "<group>"; };
 		2D73AB1A1BB4043300C93F5F /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
@@ -62,20 +40,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2D3908251BB403C1002296E1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2D3908301BB403C1002296E1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -83,7 +47,6 @@
 			isa = PBXGroup;
 			children = (
 				2D3908161BB403C1002296E1 /* SwiftRouterExample */,
-				2D39082B1BB403C1002296E1 /* SwiftRouterExampleTests */,
 				2D3908151BB403C1002296E1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -92,8 +55,6 @@
 			isa = PBXGroup;
 			children = (
 				2D3908141BB403C1002296E1 /* SwiftRouterExample.app */,
-				2D3908281BB403C1002296E1 /* SwiftRouterExampleTests.xctest */,
-				2D3908331BB403C1002296E1 /* SwiftRouterExampleUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -113,15 +74,6 @@
 				2D3908231BB403C1002296E1 /* Info.plist */,
 			);
 			path = SwiftRouterExample;
-			sourceTree = "<group>";
-		};
-		2D39082B1BB403C1002296E1 /* SwiftRouterExampleTests */ = {
-			isa = PBXGroup;
-			children = (
-				2D39082C1BB403C1002296E1 /* SwiftRouterExampleTests.swift */,
-				2D39082E1BB403C1002296E1 /* Info.plist */,
-			);
-			path = SwiftRouterExampleTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,42 +96,6 @@
 			productReference = 2D3908141BB403C1002296E1 /* SwiftRouterExample.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D3908271BB403C1002296E1 /* SwiftRouterExampleTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2D39083F1BB403C1002296E1 /* Build configuration list for PBXNativeTarget "SwiftRouterExampleTests" */;
-			buildPhases = (
-				2D3908241BB403C1002296E1 /* Sources */,
-				2D3908251BB403C1002296E1 /* Frameworks */,
-				2D3908261BB403C1002296E1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2D39082A1BB403C1002296E1 /* PBXTargetDependency */,
-			);
-			name = SwiftRouterExampleTests;
-			productName = SwiftRouterExampleTests;
-			productReference = 2D3908281BB403C1002296E1 /* SwiftRouterExampleTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		2D3908321BB403C1002296E1 /* SwiftRouterExampleUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2D3908421BB403C1002296E1 /* Build configuration list for PBXNativeTarget "SwiftRouterExampleUITests" */;
-			buildPhases = (
-				2D39082F1BB403C1002296E1 /* Sources */,
-				2D3908301BB403C1002296E1 /* Frameworks */,
-				2D3908311BB403C1002296E1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				2D3908351BB403C1002296E1 /* PBXTargetDependency */,
-			);
-			name = SwiftRouterExampleUITests;
-			productName = SwiftRouterExampleUITests;
-			productReference = 2D3908331BB403C1002296E1 /* SwiftRouterExampleUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -191,14 +107,6 @@
 				TargetAttributes = {
 					2D3908131BB403C1002296E1 = {
 						CreatedOnToolsVersion = 7.0;
-					};
-					2D3908271BB403C1002296E1 = {
-						CreatedOnToolsVersion = 7.0;
-						TestTargetID = 2D3908131BB403C1002296E1;
-					};
-					2D3908321BB403C1002296E1 = {
-						CreatedOnToolsVersion = 7.0;
-						TestTargetID = 2D3908131BB403C1002296E1;
 					};
 				};
 			};
@@ -216,8 +124,6 @@
 			projectRoot = "";
 			targets = (
 				2D3908131BB403C1002296E1 /* SwiftRouterExample */,
-				2D3908271BB403C1002296E1 /* SwiftRouterExampleTests */,
-				2D3908321BB403C1002296E1 /* SwiftRouterExampleUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -230,20 +136,6 @@
 				2D3908221BB403C1002296E1 /* LaunchScreen.storyboard in Resources */,
 				2D39081F1BB403C1002296E1 /* Assets.xcassets in Resources */,
 				2D39081D1BB403C1002296E1 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2D3908261BB403C1002296E1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2D3908311BB403C1002296E1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,35 +155,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2D3908241BB403C1002296E1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2D39082D1BB403C1002296E1 /* SwiftRouterExampleTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2D39082F1BB403C1002296E1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		2D39082A1BB403C1002296E1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2D3908131BB403C1002296E1 /* SwiftRouterExample */;
-			targetProxy = 2D3908291BB403C1002296E1 /* PBXContainerItemProxy */;
-		};
-		2D3908351BB403C1002296E1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 2D3908131BB403C1002296E1 /* SwiftRouterExample */;
-			targetProxy = 2D3908341BB403C1002296E1 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2D39081B1BB403C1002296E1 /* Main.storyboard */ = {
@@ -418,54 +282,6 @@
 			};
 			name = Release;
 		};
-		2D3908401BB403C1002296E1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = SwiftRouterExampleTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.hit.www.SwiftRouterExampleTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftRouterExample.app/SwiftRouterExample";
-			};
-			name = Debug;
-		};
-		2D3908411BB403C1002296E1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = SwiftRouterExampleTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.hit.www.SwiftRouterExampleTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwiftRouterExample.app/SwiftRouterExample";
-			};
-			name = Release;
-		};
-		2D3908431BB403C1002296E1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = SwiftRouterExampleUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.hit.www.SwiftRouterExampleUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = SwiftRouterExample;
-				USES_XCTRUNNER = YES;
-			};
-			name = Debug;
-		};
-		2D3908441BB403C1002296E1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = SwiftRouterExampleUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.hit.www.SwiftRouterExampleUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = SwiftRouterExample;
-				USES_XCTRUNNER = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -483,24 +299,6 @@
 			buildConfigurations = (
 				2D39083D1BB403C1002296E1 /* Debug */,
 				2D39083E1BB403C1002296E1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2D39083F1BB403C1002296E1 /* Build configuration list for PBXNativeTarget "SwiftRouterExampleTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2D3908401BB403C1002296E1 /* Debug */,
-				2D3908411BB403C1002296E1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2D3908421BB403C1002296E1 /* Build configuration list for PBXNativeTarget "SwiftRouterExampleUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2D3908431BB403C1002296E1 /* Debug */,
-				2D3908441BB403C1002296E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

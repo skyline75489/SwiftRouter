@@ -21,19 +21,19 @@ class RouteEntry {
     }
 }
 
-public class SwiftRouter {
-    static let sharedInstance = SwiftRouter()
+public class Router {
+    static let sharedInstance = Router()
     
     let kRouteEntryKey = "_entry"
     
     private var routeMap = NSMutableDictionary()
     
     
-    func map(route: String, controllerClass: AnyClass) {
+    public func map(route: String, controllerClass: AnyClass) {
         self.doMap(route, cls: controllerClass)
     }
     
-    func map(route: String, handler:([String:String]?) -> (Bool)) {
+    public func map(route: String, handler:([String:String]?) -> (Bool)) {
         self.doMap(route, handler: handler)
     }
     
@@ -62,7 +62,7 @@ public class SwiftRouter {
         self.insertRoute(pathComponents, entry: entry, subRoutes: subRoutes[pathComponent] as! NSMutableDictionary, index: index+1)
     }
     
-    func matchController(route: String) -> AnyObject? {
+    public func matchController(route: String) -> AnyObject? {
         if var params = self.paramsInRoute(route) {
             if let entry = self.findRouteEntry(route, params: &params) {
                 let name = NSStringFromClass(entry.klass!)
@@ -75,7 +75,7 @@ public class SwiftRouter {
         return nil;
     }
     
-    func matchHandler(route: String) -> (([String:String]?) -> (Bool))? {
+    public func matchHandler(route: String) -> (([String:String]?) -> (Bool))? {
         var a = [String:String]()
         if let entry = self.findRouteEntry(route, params: &a) {
             return entry.handler
@@ -150,13 +150,13 @@ public class SwiftRouter {
         return result
     }
     
-    func routeURL(route:String) {
+    public func routeURL(route:String) {
         if let handler = self.matchHandler(route) {
             let params = self.paramsInRoute(route)
             handler(params)
         }
     }
-    func routeURL(route:String, navigationController: UINavigationController) {
+    public func routeURL(route:String, navigationController: UINavigationController) {
         if let vc = self.matchController(route) {
             navigationController.pushViewController(vc as! UIViewController, animated: true)
         }

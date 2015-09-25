@@ -10,27 +10,44 @@ import XCTest
 @testable import SwiftRouter
 
 class SwiftRouterTests: XCTestCase {
-    
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testRouteController() {
+        let router = Router.sharedInstance
+        router.map("/user/:userId", controllerClass: UserViewController.self)
+        router.map("/story/:storyId", controllerClass: StoryViewController.self)
+        router.map("/user/:userId/story", controllerClass: StoryListViewController.self)
+        
+        XCTAssertTrue(router.matchController("/user/1")!.isKindOfClass( UserViewController.self))
+        XCTAssertTrue(router.matchController("/story/2")!.isKindOfClass( StoryViewController.self))
+        XCTAssertTrue(router.matchController("/user/2/story")!.isKindOfClass( StoryListViewController.self))
+        
+        let vc = router.matchController("/user/1?username=hello&password=123") as! UserViewController
+        XCTAssertEqual(vc.userId, "1")
+        XCTAssertEqual(vc.username, "hello")
+        XCTAssertEqual(vc.password, "123")
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
+    func testRouteHandler() {
+        let router = Router.sharedInstance
+        router.map("/user/add", handler: { (params:[String: String]?) -> (Bool) in
+            XCTAssertNotNil(params)
+            if let params = params {
+                XCTAssertEqual(params["username"], "hello")
+                XCTAssertEqual(params["password"], "123")
+            }
+            return true
+        })
+        
+        let handler = router.matchHandler("/user/add")
+        XCTAssertNotNil(handler)
+        
+        router.routeURL("/user/add?username=hello&password=123")
     }
-    
 }
