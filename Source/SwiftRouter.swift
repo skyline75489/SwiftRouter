@@ -167,7 +167,11 @@ public class Router {
         }
         return result
     }
-        
+    
+    public func removeAllRoutes() {
+        self.routeMap.removeAllObjects()
+    }
+    
     public func routeURL(route:String) {
         if let handler = self.matchHandler(route) {
             let params = self.paramsInRoute(route)
