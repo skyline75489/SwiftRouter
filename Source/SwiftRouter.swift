@@ -21,7 +21,7 @@ class RouteEntry {
     }
 }
 
-class SwiftRouter {
+public class SwiftRouter {
     static let sharedInstance = SwiftRouter()
     
     let kRouteEntryKey = "_entry"
