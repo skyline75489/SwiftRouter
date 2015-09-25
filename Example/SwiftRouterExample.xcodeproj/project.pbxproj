@@ -29,7 +29,7 @@
 		2D73AB181BB4043300C93F5F /* StoryListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryListViewController.swift; sourceTree = "<group>"; };
 		2D73AB191BB4043300C93F5F /* StoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryViewController.swift; sourceTree = "<group>"; };
 		2D73AB1A1BB4043300C93F5F /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
-		2D73AB1E1BB4043C00C93F5F /* SwiftRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftRouter.swift; path = Source/SwiftRouter.swift; sourceTree = SOURCE_ROOT; };
+		2D73AB1E1BB4043C00C93F5F /* SwiftRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftRouter.swift; path = ../Source/SwiftRouter.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
