@@ -20,7 +20,9 @@ class UserViewController: UIViewController {
 Map URL to ViewController:
 
 ```swift
-let router = SwiftRouter.sharedInstance
+import SwiftRouter
+
+let router = Router.sharedInstance
 router.map("/user/:userId", controllerClass: UserViewController.self)
 ```
 
