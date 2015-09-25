@@ -22,9 +22,9 @@ class RouteEntry {
 }
 
 public class Router {
-    static let sharedInstance = Router()
+    public static let sharedInstance = Router()
     
-    let kRouteEntryKey = "_entry"
+    private let kRouteEntryKey = "_entry"
     
     private var routeMap = NSMutableDictionary()
     
@@ -37,7 +37,7 @@ public class Router {
         self.doMap(route, handler: handler)
     }
     
-    func doMap(route: String, cls: AnyClass?=nil, handler:(([String:String]?) -> (Bool))?=nil) -> Void {
+    internal func doMap(route: String, cls: AnyClass?=nil, handler:(([String:String]?) -> (Bool))?=nil) -> Void {
         var r = RouteEntry(pattern: "/", cls: nil)
         if let k = cls {
             r = RouteEntry(pattern: route, cls: k)
@@ -47,8 +47,8 @@ public class Router {
         let pathComponents = self.pathComponentsInRoute(route)
         self.insertRoute(pathComponents, entry: r, subRoutes: self.routeMap)
     }
-
-    func insertRoute(pathComponents: [String], entry: RouteEntry, subRoutes: NSMutableDictionary, index: Int = 0){
+    
+    private func insertRoute(pathComponents: [String], entry: RouteEntry, subRoutes: NSMutableDictionary, index: Int = 0){
     
         let pathComponent = pathComponents[index]
         if subRoutes[pathComponent] == nil {
