@@ -1,3 +1,3 @@
 language: objective-c
-script: xcodebuild test -project SwiftRouter.xcodeproj -scheme SwiftRouter -sdk iphonesimulator8.1 -destination "platform=iOS Simulator,name=iPhone 5s"
+script: xcodebuild test -project SwiftRouter.xcodeproj -scheme SwiftRouter -sdk iphonesimulator9.0 -destination "platform=iOS Simulator,name=iPhone 6s"
 
