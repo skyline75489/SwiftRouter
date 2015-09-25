@@ -21,6 +21,23 @@ class RouteEntry {
     }
 }
 
+extension RouteEntry: Swift.Printable, Swift.DebugPrintable {
+    internal var description: String {
+        let empty = ""
+        if let k = self.klass {
+            return "\(self.pattern ?? empty) -> \(k)"
+        }
+        if let h = self.handler {
+            return "\(self.pattern ?? empty) -> \(h)"
+        }
+        return "Invalid Route Entry"
+    }
+    
+    internal var debugDescription: String {
+        return description
+    }
+}
+
 public class Router {
     public static let sharedInstance = Router()
     
@@ -54,6 +71,7 @@ public class Router {
         if subRoutes[pathComponent] == nil {
             if pathComponent == pathComponents.last {
                 subRoutes[pathComponent] = NSMutableDictionary(dictionary: [kRouteEntryKey: entry])
+                print("Adding Route: \(entry.description)")
                 return
             }
             subRoutes[pathComponent] = NSMutableDictionary()
@@ -149,7 +167,7 @@ public class Router {
         }
         return result
     }
-    
+        
     public func routeURL(route:String) {
         if let handler = self.matchHandler(route) {
             let params = self.paramsInRoute(route)
