@@ -1,6 +1,8 @@
 SwiftRouter
 ===========
 
+[![Swift 2.0](https://img.shields.io/badge/Swift-2.0-orange.svg?style=flat)](https://developer.apple.com/swift/)
+[![License MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat)](https://github.com/skyline75489/SwiftRouter/blob/master/LICENSE)
 [![Travis-CI](https://travis-ci.org/skyline75489/SwiftRouter.svg?branch=master)](https://travis-ci.org/skyline75489/SwiftRouter)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
