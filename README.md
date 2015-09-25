@@ -77,5 +77,5 @@ router.routeURL("/user/add?username=hello&password=123")
 
 ## License
 
-MIT License
+[MIT License](https://github.com/skyline75489/SwiftRouter/blob/master/LICENSE)
 
