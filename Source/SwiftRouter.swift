@@ -93,6 +93,21 @@ public class Router {
         return nil;
     }
     
+    public func matchControllerFromStoryboard(route: String, storyboardName: String = "Storyboard") -> AnyObject? {
+        if var params = self.paramsInRoute(route) {
+            if let entry = self.findRouteEntry(route, params: &params) {
+                let name = NSStringFromClass(entry.klass!)
+                let clz = NSClassFromString(name) as! NSObject.Type
+                let storyboard = UIStoryboard(name: storyboardName, bundle: NSBundle(forClass: clz))
+                let controllerIdentifier = name.componentsSeparatedByString(".").last!
+                let instance = storyboard.instantiateViewControllerWithIdentifier(controllerIdentifier)
+                instance.setValuesForKeysWithDictionary(params)
+                return instance
+            }
+        }
+        return nil;
+    }
+    
     public func matchHandler(route: String) -> (([String:String]?) -> (Bool))? {
         var a = [String:String]()
         if let entry = self.findRouteEntry(route, params: &a) {
