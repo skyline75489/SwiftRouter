@@ -47,6 +47,13 @@ XCTAssertEqual(vc.username, "hello")
 XCTAssertEqual(vc.password, "123")
 ```
 
+This will load controller using init() method. If you want to load view controller from storyboard - use: 
+```swift
+let vc = router.matchControllerFromStoryboard("/user/1?username=hello&password=123", 
+                                              storyboardName: "MyStoryboard")!
+```
+
+This code will load controller from storyboard named MyStoryboard.storyboard. Just don't forget to set that controller identifier in storyboard to its class name. In this case ``` UserViewController ```.
 
 Push custom ViewController:
 
