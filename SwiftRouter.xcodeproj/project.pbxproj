@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		296CFB3A1BCBDA3A00F7E57A /* MyStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 296CFB391BCBDA3A00F7E57A /* MyStoryboard.storyboard */; settings = {ASSET_TAGS = (); }; };
+		296CFB3C1BCBDA5400F7E57A /* StoryboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296CFB3B1BCBDA5400F7E57A /* StoryboardViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		296CFB3E1BCBDF3100F7E57A /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 296CFB3D1BCBDF3100F7E57A /* Storyboard.storyboard */; settings = {ASSET_TAGS = (); }; };
 		2D3E09D61BB4D79100311B23 /* StoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3E09D31BB4D79100311B23 /* StoryListViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2D3E09D71BB4D79100311B23 /* StoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3E09D41BB4D79100311B23 /* StoryViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2D3E09D81BB4D79100311B23 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3E09D51BB4D79100311B23 /* UserViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -27,6 +30,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		296CFB391BCBDA3A00F7E57A /* MyStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyStoryboard.storyboard; sourceTree = "<group>"; };
+		296CFB3B1BCBDA5400F7E57A /* StoryboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardViewController.swift; sourceTree = "<group>"; };
+		296CFB3D1BCBDF3100F7E57A /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		2D3E09D31BB4D79100311B23 /* StoryListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoryListViewController.swift; path = Example/SwiftRouterExample/StoryListViewController.swift; sourceTree = SOURCE_ROOT; };
 		2D3E09D41BB4D79100311B23 /* StoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoryViewController.swift; path = Example/SwiftRouterExample/StoryViewController.swift; sourceTree = SOURCE_ROOT; };
 		2D3E09D51BB4D79100311B23 /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserViewController.swift; path = Example/SwiftRouterExample/UserViewController.swift; sourceTree = SOURCE_ROOT; };
@@ -93,6 +99,9 @@
 				2D3E09D41BB4D79100311B23 /* StoryViewController.swift */,
 				2D3E09D51BB4D79100311B23 /* UserViewController.swift */,
 				2D7613431BB415CC0091035E /* SwiftRouterTests.swift */,
+				296CFB3B1BCBDA5400F7E57A /* StoryboardViewController.swift */,
+				296CFB391BCBDA3A00F7E57A /* MyStoryboard.storyboard */,
+				296CFB3D1BCBDF3100F7E57A /* Storyboard.storyboard */,
 				2D7613451BB415CC0091035E /* Info.plist */,
 			);
 			path = SwiftRouterTests;
@@ -196,6 +205,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				296CFB3A1BCBDA3A00F7E57A /* MyStoryboard.storyboard in Resources */,
+				296CFB3E1BCBDF3100F7E57A /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +227,7 @@
 			files = (
 				2D3E09D71BB4D79100311B23 /* StoryViewController.swift in Sources */,
 				2D3E09D81BB4D79100311B23 /* UserViewController.swift in Sources */,
+				296CFB3C1BCBDA5400F7E57A /* StoryboardViewController.swift in Sources */,
 				2D3E09D61BB4D79100311B23 /* StoryListViewController.swift in Sources */,
 				2D7613441BB415CC0091035E /* SwiftRouterTests.swift in Sources */,
 			);
