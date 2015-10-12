@@ -48,7 +48,7 @@ XCTAssertEqual(vc.password, "123")
 ```
 
 This will load controller using init() method. If you want to load view controller from storyboard - use: 
-```switf
+```swift
 let vc = router.matchControllerFromStoryboard("/user/1?username=hello&password=123", 
                                               storyboardName: "MyStoryboard")!
 ```
