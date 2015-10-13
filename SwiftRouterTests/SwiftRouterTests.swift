@@ -60,4 +60,13 @@ class SwiftRouterTests: XCTestCase {
         
         router.routeURL("/user/add?username=hello&password=123")
     }
+    
+    func testRemoveAllHandlers() {
+        let router = Router.sharedInstance
+        router.map("/user/:userId", controllerClass: UserViewController.self)
+        XCTAssertTrue(router.matchController("/user/1")!.isKindOfClass( UserViewController.self))
+
+        router.removeAllRoutes()
+        XCTAssertNil(router.matchController("/user/1"))
+    }
 }
