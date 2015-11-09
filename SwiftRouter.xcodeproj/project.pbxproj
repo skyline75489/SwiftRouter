@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		296CFB3A1BCBDA3A00F7E57A /* MyStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 296CFB391BCBDA3A00F7E57A /* MyStoryboard.storyboard */; settings = {ASSET_TAGS = (); }; };
-		296CFB3C1BCBDA5400F7E57A /* StoryboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296CFB3B1BCBDA5400F7E57A /* StoryboardViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		296CFB3E1BCBDF3100F7E57A /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 296CFB3D1BCBDF3100F7E57A /* Storyboard.storyboard */; settings = {ASSET_TAGS = (); }; };
-		2D3E09D61BB4D79100311B23 /* StoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3E09D31BB4D79100311B23 /* StoryListViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		2D3E09D71BB4D79100311B23 /* StoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3E09D41BB4D79100311B23 /* StoryViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		2D3E09D81BB4D79100311B23 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3E09D51BB4D79100311B23 /* UserViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		296CFB3A1BCBDA3A00F7E57A /* MyStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 296CFB391BCBDA3A00F7E57A /* MyStoryboard.storyboard */; };
+		296CFB3C1BCBDA5400F7E57A /* StoryboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296CFB3B1BCBDA5400F7E57A /* StoryboardViewController.swift */; };
+		296CFB3E1BCBDF3100F7E57A /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 296CFB3D1BCBDF3100F7E57A /* Storyboard.storyboard */; };
+		2D3E09D61BB4D79100311B23 /* StoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3E09D31BB4D79100311B23 /* StoryListViewController.swift */; };
+		2D3E09D71BB4D79100311B23 /* StoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3E09D41BB4D79100311B23 /* StoryViewController.swift */; };
+		2D3E09D81BB4D79100311B23 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D3E09D51BB4D79100311B23 /* UserViewController.swift */; };
 		2D7613381BB415CC0091035E /* SwiftRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D7613371BB415CC0091035E /* SwiftRouter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2D76133F1BB415CC0091035E /* SwiftRouter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D7613341BB415CC0091035E /* SwiftRouter.framework */; settings = {ASSET_TAGS = (); }; };
+		2D76133F1BB415CC0091035E /* SwiftRouter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D7613341BB415CC0091035E /* SwiftRouter.framework */; };
 		2D7613441BB415CC0091035E /* SwiftRouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D7613431BB415CC0091035E /* SwiftRouterTests.swift */; };
-		2DBE52431BB4169900F9CE5A /* SwiftRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE52421BB4169900F9CE5A /* SwiftRouter.swift */; settings = {ASSET_TAGS = (); }; };
+		2DBE52431BB4169900F9CE5A /* SwiftRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBE52421BB4169900F9CE5A /* SwiftRouter.swift */; };
+		74A5954A1BF0BA4200FE14FC /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A595491BF0BA4200FE14FC /* AboutViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,7 @@
 		2D7613431BB415CC0091035E /* SwiftRouterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftRouterTests.swift; sourceTree = "<group>"; };
 		2D7613451BB415CC0091035E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2DBE52421BB4169900F9CE5A /* SwiftRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftRouter.swift; path = Source/SwiftRouter.swift; sourceTree = SOURCE_ROOT; };
+		74A595491BF0BA4200FE14FC /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 		2D7613421BB415CC0091035E /* SwiftRouterTests */ = {
 			isa = PBXGroup;
 			children = (
+				74A595491BF0BA4200FE14FC /* AboutViewController.swift */,
 				2D3E09D31BB4D79100311B23 /* StoryListViewController.swift */,
 				2D3E09D41BB4D79100311B23 /* StoryViewController.swift */,
 				2D3E09D51BB4D79100311B23 /* UserViewController.swift */,
@@ -225,6 +228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74A5954A1BF0BA4200FE14FC /* AboutViewController.swift in Sources */,
 				2D3E09D71BB4D79100311B23 /* StoryViewController.swift in Sources */,
 				2D3E09D81BB4D79100311B23 /* UserViewController.swift in Sources */,
 				296CFB3C1BCBDA5400F7E57A /* StoryboardViewController.swift in Sources */,

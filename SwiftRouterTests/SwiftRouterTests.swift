@@ -20,11 +20,13 @@ class SwiftRouterTests: XCTestCase {
     
     func testRouteController() {
         let router = Router.sharedInstance
+        router.map("/about", controllerClass: AboutViewController.self)
         router.map("/user/:userId", controllerClass: UserViewController.self)
         router.map("/story/:storyId", controllerClass: StoryViewController.self)
         router.map("/user/:userId/story", controllerClass: StoryListViewController.self)
         router.map("/anotherScreenFromStoryboard/:identifier", controllerClass: StoryboardViewController.self)
         
+        XCTAssertTrue(router.matchController("/about")!.isKindOfClass(AboutViewController.self))
         XCTAssertTrue(router.matchController("/user/1")!.isKindOfClass( UserViewController.self))
         XCTAssertTrue(router.matchController("/story/2")!.isKindOfClass( StoryViewController.self))
         XCTAssertTrue(router.matchController("/user/2/story")!.isKindOfClass( StoryListViewController.self))

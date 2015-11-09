@@ -80,30 +80,29 @@ public class Router {
         self.insertRoute(pathComponents, entry: entry, subRoutes: subRoutes[pathComponent] as! NSMutableDictionary, index: index+1)
     }
     
+    
     public func matchController(route: String) -> AnyObject? {
-        if var params = self.paramsInRoute(route) {
-            if let entry = self.findRouteEntry(route, params: &params) {
-                let name = NSStringFromClass(entry.klass!)
-                let clz = NSClassFromString(name) as! NSObject.Type
-                let instance = clz.init()
-                instance.setValuesForKeysWithDictionary(params)
-                return instance
-            }
+        var params = self.paramsInRoute(route)
+        if let entry = self.findRouteEntry(route, params: &params) {
+            let name = NSStringFromClass(entry.klass!)
+            let clz = NSClassFromString(name) as! NSObject.Type
+            let instance = clz.init()
+            instance.setValuesForKeysWithDictionary(params)
+            return instance
         }
         return nil;
     }
     
     public func matchControllerFromStoryboard(route: String, storyboardName: String = "Storyboard") -> AnyObject? {
-        if var params = self.paramsInRoute(route) {
-            if let entry = self.findRouteEntry(route, params: &params) {
-                let name = NSStringFromClass(entry.klass!)
-                let clz = NSClassFromString(name) as! NSObject.Type
-                let storyboard = UIStoryboard(name: storyboardName, bundle: NSBundle(forClass: clz))
-                let controllerIdentifier = name.componentsSeparatedByString(".").last!
-                let instance = storyboard.instantiateViewControllerWithIdentifier(controllerIdentifier)
-                instance.setValuesForKeysWithDictionary(params)
-                return instance
-            }
+        var params = self.paramsInRoute(route)
+        if let entry = self.findRouteEntry(route, params: &params) {
+            let name = NSStringFromClass(entry.klass!)
+            let clz = NSClassFromString(name) as! NSObject.Type
+            let storyboard = UIStoryboard(name: storyboardName, bundle: NSBundle(forClass: clz))
+            let controllerIdentifier = name.componentsSeparatedByString(".").last!
+            let instance = storyboard.instantiateViewControllerWithIdentifier(controllerIdentifier)
+            instance.setValuesForKeysWithDictionary(params)
+            return instance
         }
         return nil;
     }
@@ -147,7 +146,7 @@ public class Router {
         return nil
     }
     
-    func paramsInRoute(route: String) -> [String: String]? {
+    func paramsInRoute(route: String) -> [String: String] {
 
         var params = [String:String]()
         self.findRouteEntry(route, params: &params)
@@ -162,15 +161,12 @@ public class Router {
                 params[k] = v
             }
         }
-        if params.isEmpty {
-            return nil
-        }
         return params
     }
     
     func pathComponentsInRoute(route: String) -> [String] {
         var path:NSString = NSString(string: route)
-        if  let loc = route.rangeOfString("?") {
+        if let loc = route.rangeOfString("?") {
             path = NSString(string: route.substringToIndex(loc.startIndex))
         }
         var result = [String]()
