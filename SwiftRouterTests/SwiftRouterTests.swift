@@ -24,6 +24,8 @@ class SwiftRouterTests: XCTestCase {
         router.map("/user/:userId", controllerClass: UserViewController.self)
         router.map("/story/:storyId", controllerClass: StoryViewController.self)
         router.map("/user/:userId/story", controllerClass: StoryListViewController.self)
+        router.map("/user/:userId/story", controllerClass: StoryListViewController.self)
+
         router.map("/anotherScreenFromStoryboard/:identifier", controllerClass: StoryboardViewController.self)
         
         XCTAssertTrue(router.matchController("/about")!.isKindOfClass(AboutViewController.self))

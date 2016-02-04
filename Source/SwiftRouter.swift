@@ -9,6 +9,34 @@
 import Foundation
 import UIKit
 
+var appUrlSchemes:[String] = {
+    if let info:[String:AnyObject] = NSBundle.mainBundle().infoDictionary {
+        var schemes = [String]()
+        if let url = info["CFBundleURLTypes"] as? [[String:AnyObject]]? where url != nil {
+            for d in url! {
+                if let scheme = d["CFBundleURLSchemes"]?[0] as? String{
+                    schemes.append(scheme)
+                }
+            }
+        }
+        return schemes
+    }
+    return []
+}()
+
+enum RouterError:ErrorType {
+    case SchemeNotRecognized
+    case EntryAlreayExisted
+    func message() -> String {
+        switch (self) {
+        case .SchemeNotRecognized:
+            return "SchemeNotRecognized"
+        case .EntryAlreayExisted:
+            return "EntryAlreayExisted"
+        }
+    }
+}
+
 class RouteEntry {
     var pattern: String? = nil
     var handler: (([String:String]?) -> Bool)? = nil
@@ -38,14 +66,24 @@ extension RouteEntry: Swift.Printable, Swift.DebugPrintable {
     }
 }
 
+extension String {
+    func stringByFilterAppSchemes() -> String {
+        for scheme in appUrlSchemes {
+            if self.hasPrefix(scheme.stringByAppendingString(":")) {
+                return self.substringFromIndex(self.startIndex.advancedBy((scheme.characters.count + 2)))
+            }
+        }
+        return self
+    }
+}
+
 public class Router {
     public static let sharedInstance = Router()
     
     private let kRouteEntryKey = "_entry"
     
     private var routeMap = NSMutableDictionary()
-    
-    
+
     public func map(route: String, controllerClass: AnyClass) {
         self.doMap(route, cls: controllerClass)
     }
@@ -66,7 +104,10 @@ public class Router {
     }
     
     private func insertRoute(pathComponents: [String], entry: RouteEntry, subRoutes: NSMutableDictionary, index: Int = 0){
-    
+
+        if index >= pathComponents.count {
+            fatalError(RouterError.EntryAlreayExisted.message())
+        }
         let pathComponent = pathComponents[index]
         if subRoutes[pathComponent] == nil {
             if pathComponent == pathComponents.last {
@@ -116,7 +157,7 @@ public class Router {
     }
     
     func findRouteEntry(route: String, inout params:[String:String]) -> RouteEntry? {
-        let pathComponents = self.pathComponentsInRoute(route)
+        let pathComponents = self.pathComponentsInRoute(route.stringByFilterAppSchemes())
         
         var subRoutes = self.routeMap
         for pathComponent in pathComponents {
@@ -140,6 +181,8 @@ public class Router {
                     }
                     subRoutes = subRoutes[s] as! NSMutableDictionary
                     break
+                } else {
+                    fatalError(RouterError.SchemeNotRecognized.message())
                 }
             }
         }
@@ -149,9 +192,9 @@ public class Router {
     func paramsInRoute(route: String) -> [String: String] {
 
         var params = [String:String]()
-        self.findRouteEntry(route, params: &params)
+        self.findRouteEntry(route.stringByFilterAppSchemes(), params: &params)
         
-        if  let loc = route.rangeOfString("?") {
+        if let loc = route.rangeOfString("?") {
             let paramsString = route.substringFromIndex(loc.startIndex.advancedBy(1))
             let paramArray = paramsString.componentsSeparatedByString("&")
             for param in paramArray {
