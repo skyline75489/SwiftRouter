@@ -27,12 +27,15 @@ var appUrlSchemes:[String] = {
 enum RouterError:ErrorType {
     case SchemeNotRecognized
     case EntryAlreayExisted
+    case InvalidRouteEntry
     func message() -> String {
         switch (self) {
         case .SchemeNotRecognized:
             return "SchemeNotRecognized"
         case .EntryAlreayExisted:
             return "EntryAlreayExisted"
+        case .InvalidRouteEntry:
+            return "InvalidRouteEntry"
         }
     }
 }
@@ -58,7 +61,7 @@ extension RouteEntry: Swift.Printable, Swift.DebugPrintable {
         if let h = self.handler {
             return "\(self.pattern ?? empty) -> \(h)"
         }
-        return "Invalid Route Entry"
+        fatalError(RouterError.InvalidRouteEntry.message())
     }
     
     internal var debugDescription: String {
