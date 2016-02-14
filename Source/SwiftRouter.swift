@@ -21,7 +21,7 @@ class RouteEntry {
     }
 }
 
-extension RouteEntry: Swift.Printable, Swift.DebugPrintable {
+extension RouteEntry: CustomStringConvertible, CustomDebugStringConvertible {
     internal var description: String {
         let empty = ""
         if let k = self.klass {
