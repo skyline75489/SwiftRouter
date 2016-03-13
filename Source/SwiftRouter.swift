@@ -54,7 +54,7 @@ public class Router {
         self.doMap(route, handler: handler)
     }
     
-    internal func doMap(route: String, cls: AnyClass?=nil, handler:(([String:String]?) -> (Bool))?=nil) -> Void {
+    private func doMap(route: String, cls: AnyClass?=nil, handler:(([String:String]?) -> (Bool))?=nil) -> Void {
         var r = RouteEntry(pattern: "/", cls: nil)
         if let k = cls {
             r = RouteEntry(pattern: route, cls: k)
@@ -115,7 +115,7 @@ public class Router {
         return nil
     }
     
-    func findRouteEntry(route: String, inout params:[String:String]) -> RouteEntry? {
+    private func findRouteEntry(route: String, inout params:[String:String]) -> RouteEntry? {
         let pathComponents = self.pathComponentsInRoute(route)
         
         var subRoutes = self.routeMap
@@ -146,7 +146,7 @@ public class Router {
         return nil
     }
     
-    func paramsInRoute(route: String) -> [String: String] {
+    private func paramsInRoute(route: String) -> [String: String] {
 
         var params = [String:String]()
         self.findRouteEntry(route, params: &params)
@@ -164,7 +164,7 @@ public class Router {
         return params
     }
     
-    func pathComponentsInRoute(route: String) -> [String] {
+    private func pathComponentsInRoute(route: String) -> [String] {
         var path:NSString = NSString(string: route)
         if let loc = route.rangeOfString("?") {
             path = NSString(string: route.substringToIndex(loc.startIndex))
