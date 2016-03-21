@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "SwiftRouter"
-  s.version = "1.0.5"
+  s.version = "1.0.6"
   s.license = "MIT"
   s.summary = "A URL Router for iOS, written in Swift 2.0"
   s.homepage = "https://github.com/skyline75489/SwiftRouter"
