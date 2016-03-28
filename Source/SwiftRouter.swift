@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 var appUrlSchemes:[String] = {
-    if let info:[String:AnyObject] = NSBundle.mainBundle().infoDictionary {
+    if let info:[String:AnyObject] = NSBundle.main().infoDictionary {
         var schemes = [String]()
         if let url = info["CFBundleURLTypes"] as? [[String:AnyObject]]? where url != nil {
             for d in url! {
@@ -24,7 +24,7 @@ var appUrlSchemes:[String] = {
     return []
 }()
 
-enum RouterError:ErrorType {
+enum RouterError:ErrorProtocol {
     case SchemeNotRecognized
     case EntryAlreayExisted
     case InvalidRouteEntry
@@ -72,8 +72,8 @@ extension RouteEntry: CustomStringConvertible, CustomDebugStringConvertible {
 extension String {
     func stringByFilterAppSchemes() -> String {
         for scheme in appUrlSchemes {
-            if self.hasPrefix(scheme.stringByAppendingString(":")) {
-                return self.substringFromIndex(self.startIndex.advancedBy((scheme.characters.count + 2)))
+            if self.hasPrefix(scheme.appending(":")) {
+                return self.substring(from: self.startIndex.advanced(by: (scheme.characters.count + 2)))
             }
         }
         return self
@@ -131,7 +131,7 @@ public class Router {
             let name = NSStringFromClass(entry.klass!)
             let clz = NSClassFromString(name) as! NSObject.Type
             let instance = clz.init()
-            instance.setValuesForKeysWithDictionary(params)
+            instance.setValuesForKeysWith(params)
             return instance
         }
         return nil;
@@ -142,10 +142,10 @@ public class Router {
         if let entry = self.findRouteEntry(route, params: &params) {
             let name = NSStringFromClass(entry.klass!)
             let clz = NSClassFromString(name) as! NSObject.Type
-            let storyboard = UIStoryboard(name: storyboardName, bundle: NSBundle(forClass: clz))
-            let controllerIdentifier = name.componentsSeparatedByString(".").last!
-            let instance = storyboard.instantiateViewControllerWithIdentifier(controllerIdentifier)
-            instance.setValuesForKeysWithDictionary(params)
+            let storyboard = UIStoryboard(name: storyboardName, bundle: NSBundle(for: clz))
+            let controllerIdentifier = name.componentsSeparated(by: ".").last!
+            let instance = storyboard.instantiateViewController(withIdentifier: controllerIdentifier)
+            instance.setValuesForKeysWith(params)
             return instance
         }
         return nil;
@@ -159,7 +159,7 @@ public class Router {
         return nil
     }
 
-    private func findRouteEntry(route: String, inout params:[String:String]) -> RouteEntry? {
+    private func findRouteEntry(route: String, params:inout [String:String]) -> RouteEntry? {
         let pathComponents = self.pathComponentsInRoute(route)
         
         var subRoutes = self.routeMap
@@ -177,7 +177,7 @@ public class Router {
                 }
                 if k.hasPrefix(":") {
                     let s = String(k)
-                    let key = s.substringFromIndex(s.startIndex.advancedBy(1))
+                    let key = s.substring(from: s.startIndex.advanced(by: 1))
                     params[key] = pathComponent
                     if pathComponent == pathComponents.last {
                         return v[kRouteEntryKey] as? RouteEntry
@@ -197,11 +197,11 @@ public class Router {
         var params = [String:String]()
         self.findRouteEntry(route.stringByFilterAppSchemes(), params: &params)
         
-        if let loc = route.rangeOfString("?") {
-            let paramsString = route.substringFromIndex(loc.startIndex.advancedBy(1))
-            let paramArray = paramsString.componentsSeparatedByString("&")
+        if let loc = route.range(of: "?") {
+            let paramsString = route.substring(from: loc.startIndex.advanced(by: 1))
+            let paramArray = paramsString.componentsSeparated(by: "&")
             for param in paramArray {
-                let kv = param.componentsSeparatedByString("=")
+                let kv = param.componentsSeparated(by: "=")
                 let k = kv[0]
                 let v = kv[1]
                 params[k] = v
@@ -212,8 +212,8 @@ public class Router {
     
     private func pathComponentsInRoute(route: String) -> [String] {
         var path:NSString = NSString(string: route)
-        if let loc = route.rangeOfString("?") {
-            path = NSString(string: route.substringToIndex(loc.startIndex))
+        if let loc = route.range(of: "?") {
+            path = NSString(string: route.substring(to: loc.startIndex))
         }
         var result = [String]()
         for pathComponent in path.pathComponents {
