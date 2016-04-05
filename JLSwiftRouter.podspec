@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
   s.name = "JLSwiftRouter"
   s.version = "1.0.6"
   s.license = "MIT"
-  s.summary = "A URL Router for iOS, written in Swift 2.0"
+  s.summary = "A URL Router for iOS, written in Swift 2.2"
   s.homepage = "https://github.com/skyline75489/SwiftRouter"
   s.authors = { "Chester Liu" => "skyline75489@outlook.com" }
   s.source = { :git => "git@github.com:skyline75489/SwiftRouter.git", :tag => s.version }
