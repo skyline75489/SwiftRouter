@@ -10,10 +10,23 @@ A URL Router for iOS, written in Swift 2.0, inspired by [HHRouter](https://githu
 
 ## Installation
 
+### Carthage
+
 SwiftRouter is compatible with [Carthage](https://github.com/Carthage/Carthage). Add it to your `Cartfile`:
 
     github "skyline75489/SwiftRouter"
 
+### CocoaPods
+
+```ruby
+pod 'JLSwiftRouter'
+
+use_frameworks!
+```
+
+### Manually
+
+Add `SwiftRouter.swift` in your project.
 
 ## Usage
    
