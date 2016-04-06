@@ -14,7 +14,7 @@ var appUrlSchemes:[String] = {
         var schemes = [String]()
         if let url = info["CFBundleURLTypes"] as? [[String:AnyObject]]? where url != nil {
             for d in url! {
-                if let scheme = d["CFBundleURLSchemes"]?[0] as? String{
+                if let scheme = (d["CFBundleURLSchemes"] as? [String])?[0]{
                     schemes.append(scheme)
                 }
             }
