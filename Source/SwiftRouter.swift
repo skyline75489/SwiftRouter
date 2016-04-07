@@ -28,7 +28,10 @@ enum RouterError:ErrorType {
     case SchemeNotRecognized
     case EntryAlreayExisted
     case InvalidRouteEntry
-    func message() -> String {
+}
+
+extension RouterError: CustomStringConvertible, CustomDebugStringConvertible {
+    var description: String {
         switch (self) {
         case .SchemeNotRecognized:
             return "SchemeNotRecognized"
@@ -37,6 +40,10 @@ enum RouterError:ErrorType {
         case .InvalidRouteEntry:
             return "InvalidRouteEntry"
         }
+    }
+
+    var debugDescription: String {
+        return description
     }
 }
 
@@ -53,7 +60,7 @@ class RouteEntry {
 }
 
 extension RouteEntry: CustomStringConvertible, CustomDebugStringConvertible {
-    internal var description: String {
+    var description: String {
         let empty = ""
         if let k = self.klass {
             return "\(self.pattern ?? empty) -> \(k)"
@@ -61,10 +68,10 @@ extension RouteEntry: CustomStringConvertible, CustomDebugStringConvertible {
         if let h = self.handler {
             return "\(self.pattern ?? empty) -> \(h)"
         }
-        fatalError(RouterError.InvalidRouteEntry.message())
+        fatalError(RouterError.InvalidRouteEntry.description)
     }
     
-    internal var debugDescription: String {
+    var debugDescription: String {
         return description
     }
 }
@@ -109,7 +116,7 @@ public class Router {
     private func insertRoute(pathComponents: [String], entry: RouteEntry, subRoutes: NSMutableDictionary, index: Int = 0){
 
         if index >= pathComponents.count {
-            fatalError(RouterError.EntryAlreayExisted.message())
+            fatalError(RouterError.EntryAlreayExisted.description)
         }
         let pathComponent = pathComponents[index]
         if subRoutes[pathComponent] == nil {
@@ -185,7 +192,7 @@ public class Router {
                     subRoutes = subRoutes[s] as! NSMutableDictionary
                     break
                 } else {
-                    fatalError(RouterError.SchemeNotRecognized.message())
+                    fatalError(RouterError.SchemeNotRecognized.description)
                 }
             }
         }
