@@ -166,7 +166,7 @@ public class Router {
         return nil
     }
 
-    private func findRouteEntry(route: String, inout params:[String:String]) -> RouteEntry? {
+    private func findRouteEntry(route: String, inout params: [String:String]) -> RouteEntry? {
         let pathComponents = self.pathComponentsInRoute(route)
         
         var subRoutes = self.routeMap
