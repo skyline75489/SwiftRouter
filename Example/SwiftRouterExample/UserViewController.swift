@@ -17,8 +17,8 @@ class UserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let v = UIView(frame: UIScreen.mainScreen().bounds)
-        v.backgroundColor = UIColor.whiteColor()
+        let v = UIView(frame: UIScreen.main().bounds)
+        v.backgroundColor = UIColor.white()
 
         if let userId = self.userId {
             let userIdLabel = UILabel(frame: CGRectMake(80, 100, 200, 20))
