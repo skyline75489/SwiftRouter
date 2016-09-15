@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 var appUrlSchemes:[String] = {
-    if let info:[String:AnyObject] = NSBundle.main().infoDictionary {
+    if let info:[String:AnyObject] = Bundle.main.infoDictionary as [String : AnyObject]? {
         var schemes = [String]()
-        if let url = info["CFBundleURLTypes"] as? [[String:AnyObject]]? where url != nil {
+        if let url = info["CFBundleURLTypes"] as? [[String:AnyObject]]? , url != nil {
             for d in url! {
                 if let scheme = (d["CFBundleURLSchemes"] as? [String])?[0]{
                     schemes.append(scheme)
@@ -24,20 +24,20 @@ var appUrlSchemes:[String] = {
     return []
 }()
 
-enum RouterError:ErrorProtocol {
-    case SchemeNotRecognized
-    case EntryAlreayExisted
-    case InvalidRouteEntry
+enum RouterError:Error {
+    case schemeNotRecognized
+    case entryAlreayExisted
+    case invalidRouteEntry
 }
 
 extension RouterError: CustomStringConvertible, CustomDebugStringConvertible {
     var description: String {
         switch (self) {
-        case .SchemeNotRecognized:
+        case .schemeNotRecognized:
             return "SchemeNotRecognized"
-        case .EntryAlreayExisted:
+        case .entryAlreayExisted:
             return "EntryAlreayExisted"
-        case .InvalidRouteEntry:
+        case .invalidRouteEntry:
             return "InvalidRouteEntry"
         }
     }
@@ -52,7 +52,7 @@ class RouteEntry {
     var handler: (([String:String]?) -> Bool)? = nil
     var klass: AnyClass? = nil
     
-    init(pattern:String?, cls: AnyClass?=nil, handler:((params: [String:String]?) -> Bool)?=nil) {
+    init(pattern:String?, cls: AnyClass?=nil, handler:((_ params: [String:String]?) -> Bool)?=nil) {
         self.pattern = pattern
         self.klass = cls
         self.handler = handler
@@ -68,7 +68,7 @@ extension RouteEntry: CustomStringConvertible, CustomDebugStringConvertible {
         if let h = self.handler {
             return "\(self.pattern ?? empty) -> \(h)"
         }
-        fatalError(RouterError.InvalidRouteEntry.description)
+        fatalError(RouterError.invalidRouteEntry.description)
     }
     
     var debugDescription: String {
@@ -79,30 +79,31 @@ extension RouteEntry: CustomStringConvertible, CustomDebugStringConvertible {
 extension String {
     func stringByFilterAppSchemes() -> String {
         for scheme in appUrlSchemes {
-            if self.hasPrefix(scheme.appending(":")) {
-                return self.substring(from: self.startIndex.advanced(by: (scheme.characters.count + 2)))
+            if hasPrefix(scheme.appending(":")) {
+                return substring(from: index(startIndex, offsetBy: scheme.characters.count + 2))
+
             }
         }
         return self
     }
 }
 
-public class Router {
-    public static let sharedInstance = Router()
+open class Router {
+    open static let sharedInstance = Router()
     
-    private let kRouteEntryKey = "_entry"
+    fileprivate let kRouteEntryKey = "_entry"
     
-    private var routeMap = NSMutableDictionary()
+    fileprivate var routeMap = NSMutableDictionary()
 
-    public func map(route: String, controllerClass: AnyClass) {
-        self.doMap(route, cls: controllerClass)
+    open func map(_ route: String, controllerClass: AnyClass) {
+        doMap(route, cls: controllerClass)
     }
     
-    public func map(route: String, handler:([String:String]?) -> (Bool)) {
-        self.doMap(route, handler: handler)
+    open func map(_ route: String, handler:@escaping ([String:String]?) -> (Bool)) {
+        doMap(route, handler: handler)
     }
     
-    private func doMap(route: String, cls: AnyClass?=nil, handler:(([String:String]?) -> (Bool))?=nil) -> Void {
+    fileprivate func doMap(_ route: String, cls: AnyClass?=nil, handler:(([String:String]?) -> (Bool))?=nil) -> Void {
         var r = RouteEntry(pattern: "/", cls: nil)
         if let k = cls {
             r = RouteEntry(pattern: route, cls: k)
@@ -110,13 +111,13 @@ public class Router {
             r = RouteEntry(pattern: route, handler: handler)
         }
         let pathComponents = self.pathComponentsInRoute(route)
-        self.insertRoute(pathComponents, entry: r, subRoutes: self.routeMap)
+        insertRoute(pathComponents, entry: r, subRoutes: self.routeMap)
     }
     
-    private func insertRoute(pathComponents: [String], entry: RouteEntry, subRoutes: NSMutableDictionary, index: Int = 0){
+    fileprivate func insertRoute(_ pathComponents: [String], entry: RouteEntry, subRoutes: NSMutableDictionary, index: Int = 0){
 
         if index >= pathComponents.count {
-            fatalError(RouterError.EntryAlreayExisted.description)
+            fatalError(RouterError.entryAlreayExisted.description)
         }
         let pathComponent = pathComponents[index]
         if subRoutes[pathComponent] == nil {
@@ -128,48 +129,48 @@ public class Router {
             subRoutes[pathComponent] = NSMutableDictionary()
         }
         // recursive
-        self.insertRoute(pathComponents, entry: entry, subRoutes: subRoutes[pathComponent] as! NSMutableDictionary, index: index+1)
+        insertRoute(pathComponents, entry: entry, subRoutes: subRoutes[pathComponent] as! NSMutableDictionary, index: index+1)
     }
     
     
-    public func matchController(route: String) -> AnyObject? {
-        var params = self.paramsInRoute(route)
-        if let entry = self.findRouteEntry(route, params: &params) {
+    open func matchController(_ route: String) -> AnyObject? {
+        var params = paramsInRoute(route)
+        if let entry = findRouteEntry(route, params: &params) {
             let name = NSStringFromClass(entry.klass!)
             let clz = NSClassFromString(name) as! NSObject.Type
             let instance = clz.init()
-            instance.setValuesForKeysWith(params)
+            instance.setValuesForKeys(params)
             return instance
         }
         return nil;
     }
     
-    public func matchControllerFromStoryboard(route: String, storyboardName: String = "Storyboard") -> AnyObject? {
-        var params = self.paramsInRoute(route)
-        if let entry = self.findRouteEntry(route, params: &params) {
+    open func matchControllerFromStoryboard(_ route: String, storyboardName: String = "Storyboard") -> AnyObject? {
+        var params = paramsInRoute(route)
+        if let entry = findRouteEntry(route, params: &params) {
             let name = NSStringFromClass(entry.klass!)
             let clz = NSClassFromString(name) as! NSObject.Type
-            let storyboard = UIStoryboard(name: storyboardName, bundle: NSBundle(for: clz))
-            let controllerIdentifier = name.componentsSeparated(by: ".").last!
+            let storyboard = UIStoryboard(name: storyboardName, bundle: Bundle(for: clz))
+            let controllerIdentifier = name.components(separatedBy: ".").last!
             let instance = storyboard.instantiateViewController(withIdentifier: controllerIdentifier)
-            instance.setValuesForKeysWith(params)
+            instance.setValuesForKeys(params)
             return instance
         }
         return nil;
     }
     
-    public func matchHandler(route: String) -> (([String:String]?) -> (Bool))? {
+    open func matchHandler(_ route: String) -> (([String:String]?) -> (Bool))? {
         var a = [String:String]()
-        if let entry = self.findRouteEntry(route, params: &a) {
+        if let entry = findRouteEntry(route, params: &a) {
             return entry.handler
         }
         return nil
     }
 
-    private func findRouteEntry(route: String, params:inout [String:String]) -> RouteEntry? {
-        let pathComponents = self.pathComponentsInRoute(route)
+    fileprivate func findRouteEntry(_ route: String, params:inout [String:String]) -> RouteEntry? {
+        let pathComponents = pathComponentsInRoute(route)
         
-        var subRoutes = self.routeMap
+        var subRoutes = routeMap
         for pathComponent in pathComponents {
             for (k, v) in subRoutes {
                 // match handler first
@@ -182,33 +183,33 @@ public class Router {
                     subRoutes = subRoutes[pathComponent] as! NSMutableDictionary
                     break
                 }
-                if k.hasPrefix(":") {
-                    let s = String(k)
-                    let key = s.substring(from: s.startIndex.advanced(by: 1))
+                if (k as AnyObject).hasPrefix(":") {
+                    let s = String(describing: k)
+                    let key = s.substring(from: s.index(s.startIndex, offsetBy: 1))
                     params[key] = pathComponent
                     if pathComponent == pathComponents.last {
-                        return v[kRouteEntryKey] as? RouteEntry
+                        return (v as? NSDictionary)?[kRouteEntryKey] as? RouteEntry
                     }
                     subRoutes = subRoutes[s] as! NSMutableDictionary
                     break
                 } else {
-                    fatalError(RouterError.SchemeNotRecognized.description)
+                    fatalError(RouterError.schemeNotRecognized.description)
                 }
             }
         }
         return nil
     }
     
-    private func paramsInRoute(route: String) -> [String: String] {
+    fileprivate func paramsInRoute(_ route: String) -> [String: String] {
 
         var params = [String:String]()
-        self.findRouteEntry(route.stringByFilterAppSchemes(), params: &params)
+        _ = findRouteEntry(route.stringByFilterAppSchemes(), params: &params)
         
         if let loc = route.range(of: "?") {
-            let paramsString = route.substring(from: loc.startIndex.advanced(by: 1))
-            let paramArray = paramsString.componentsSeparated(by: "&")
+            let paramsString = route.substring(from: route.index(after: loc.lowerBound))
+            let paramArray = paramsString.components(separatedBy: "&")
             for param in paramArray {
-                let kv = param.componentsSeparated(by: "=")
+                let kv = param.components(separatedBy: "=")
                 let k = kv[0]
                 let v = kv[1]
                 params[k] = v
@@ -217,10 +218,10 @@ public class Router {
         return params
     }
     
-    private func pathComponentsInRoute(route: String) -> [String] {
+    fileprivate func pathComponentsInRoute(_ route: String) -> [String] {
         var path:NSString = NSString(string: route)
         if let loc = route.range(of: "?") {
-            path = NSString(string: route.substring(to: loc.startIndex))
+            path = NSString(string: route.substring(to: loc.lowerBound))
         }
         var result = [String]()
         for pathComponent in path.pathComponents {
@@ -232,18 +233,18 @@ public class Router {
         return result
     }
     
-    public func removeAllRoutes() {
-        self.routeMap.removeAllObjects()
+    open func removeAllRoutes() {
+        routeMap.removeAllObjects()
     }
     
-    public func routeURL(route:String) {
-        if let handler = self.matchHandler(route) {
-            let params = self.paramsInRoute(route)
-            handler(params)
+    open func routeURL(_ route:String) {
+        if let handler = matchHandler(route) {
+            let params = paramsInRoute(route)
+            _ = handler(params)
         }
     }
-    public func routeURL(route:String, navigationController: UINavigationController) {
-        if let vc = self.matchController(route) {
+    open func routeURL(_ route:String, navigationController: UINavigationController) {
+        if let vc = matchController(route) {
             navigationController.pushViewController(vc as! UIViewController, animated: true)
         }
     }
