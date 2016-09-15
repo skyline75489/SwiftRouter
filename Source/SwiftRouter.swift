@@ -3,7 +3,7 @@
 //  Swift-Playground
 //
 //  Created by skyline on 15/9/23.
-//  Copyright © 2015年 skyline. All rights reserved.
+//  Copyright © 2016年 skyline. All rights reserved.
 //
 
 import Foundation
@@ -81,7 +81,6 @@ extension String {
         for scheme in appUrlSchemes {
             if hasPrefix(scheme.appending(":")) {
                 return substring(from: index(startIndex, offsetBy: scheme.characters.count + 2))
-
             }
         }
         return self
@@ -89,7 +88,7 @@ extension String {
 }
 
 open class Router {
-    open static let sharedInstance = Router()
+    open static let shared = Router()
     
     fileprivate let kRouteEntryKey = "_entry"
     

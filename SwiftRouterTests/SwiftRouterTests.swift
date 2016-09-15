@@ -3,7 +3,7 @@
 //  SwiftRouterTests
 //
 //  Created by skyline on 15/9/24.
-//  Copyright © 2015年 skyline. All rights reserved.
+//  Copyright © 2016年 skyline. All rights reserved.
 //
 
 import XCTest
@@ -19,7 +19,8 @@ class SwiftRouterTests: XCTestCase {
     }
     
     func testRouteController() {
-        let router = Router.sharedInstance
+        let router = Router.shared
+
         router.map("/about", controllerClass: AboutViewController.self)
         router.map("/user/:userId", controllerClass: UserViewController.self)
         router.map("/story/:storyId", controllerClass: StoryViewController.self)
@@ -48,7 +49,7 @@ class SwiftRouterTests: XCTestCase {
     }
     
     func testRouteHandler() {
-        let router = Router.sharedInstance
+        let router = Router.shared
         router.map("/user/add", handler: { (params:[String: String]?) -> (Bool) in
             XCTAssertNotNil(params)
             if let params = params {
@@ -65,7 +66,7 @@ class SwiftRouterTests: XCTestCase {
     }
     
     func testRemoveAllHandlers() {
-        let router = Router.sharedInstance
+        let router = Router.shared
         router.map("/user/:userId", controllerClass: UserViewController.self)
         XCTAssertTrue(router.matchController("/user/1")!.isKind(of: UserViewController.self))
 
