@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
-var appUrlSchemes:[String] = {
-    if let info:[String:AnyObject] = Bundle.main.infoDictionary as [String : AnyObject]? {
+var appUrlSchemes: [String] = {
+    if let info: [String:AnyObject] = Bundle.main.infoDictionary as [String : AnyObject]? {
         var schemes = [String]()
-        if let url = info["CFBundleURLTypes"] as? [[String:AnyObject]]? , url != nil {
+        if let url = info["CFBundleURLTypes"] as? [[String:AnyObject]]?, url != nil {
             for d in url! {
-                if let scheme = (d["CFBundleURLSchemes"] as? [String])?[0]{
+                if let scheme = (d["CFBundleURLSchemes"] as? [String])?[0] {
                     schemes.append(scheme)
                 }
             }
@@ -24,7 +24,7 @@ var appUrlSchemes:[String] = {
     return []
 }()
 
-enum RouterError:Error {
+enum RouterError: Error {
     case schemeNotRecognized
     case entryAlreayExisted
     case invalidRouteEntry
@@ -51,8 +51,8 @@ class RouteEntry {
     var pattern: String? = nil
     var handler: (([String:String]?) -> Bool)? = nil
     var klass: AnyClass? = nil
-    
-    init(pattern:String?, cls: AnyClass?=nil, handler:((_ params: [String:String]?) -> Bool)?=nil) {
+
+    init(pattern: String?, cls: AnyClass?=nil, handler:((_ params: [String:String]?) -> Bool)?=nil) {
         self.pattern = pattern
         self.klass = cls
         self.handler = handler
@@ -70,7 +70,7 @@ extension RouteEntry: CustomStringConvertible, CustomDebugStringConvertible {
         }
         fatalError(RouterError.invalidRouteEntry.description)
     }
-    
+
     var debugDescription: String {
         return description
     }
@@ -89,20 +89,20 @@ extension String {
 
 open class Router {
     open static let shared = Router()
-    
+
     fileprivate let kRouteEntryKey = "_entry"
-    
+
     fileprivate var routeMap = NSMutableDictionary()
 
     open func map(_ route: String, controllerClass: AnyClass) {
         doMap(route, cls: controllerClass)
     }
-    
+
     open func map(_ route: String, handler:@escaping ([String:String]?) -> (Bool)) {
         doMap(route, handler: handler)
     }
-    
-    fileprivate func doMap(_ route: String, cls: AnyClass?=nil, handler:(([String:String]?) -> (Bool))?=nil) -> Void {
+
+    fileprivate func doMap(_ route: String, cls: AnyClass?=nil, handler: (([String:String]?) -> (Bool))?=nil) -> Void {
         var r = RouteEntry(pattern: "/", cls: nil)
         if let k = cls {
             r = RouteEntry(pattern: route, cls: k)
@@ -112,8 +112,8 @@ open class Router {
         let pathComponents = self.pathComponentsInRoute(route)
         insertRoute(pathComponents, entry: r, subRoutes: self.routeMap)
     }
-    
-    fileprivate func insertRoute(_ pathComponents: [String], entry: RouteEntry, subRoutes: NSMutableDictionary, index: Int = 0){
+
+    fileprivate func insertRoute(_ pathComponents: [String], entry: RouteEntry, subRoutes: NSMutableDictionary, index: Int = 0) {
 
         if index >= pathComponents.count {
             fatalError(RouterError.entryAlreayExisted.description)
@@ -130,8 +130,8 @@ open class Router {
         // recursive
         insertRoute(pathComponents, entry: entry, subRoutes: subRoutes[pathComponent] as! NSMutableDictionary, index: index+1)
     }
-    
-    
+
+
     open func matchController(_ route: String) -> AnyObject? {
         var params = paramsInRoute(route)
         if let entry = findRouteEntry(route, params: &params) {
@@ -141,9 +141,9 @@ open class Router {
             instance.setValuesForKeys(params)
             return instance
         }
-        return nil;
+        return nil
     }
-    
+
     open func matchControllerFromStoryboard(_ route: String, storyboardName: String = "Storyboard") -> AnyObject? {
         var params = paramsInRoute(route)
         if let entry = findRouteEntry(route, params: &params) {
@@ -155,9 +155,9 @@ open class Router {
             instance.setValuesForKeys(params)
             return instance
         }
-        return nil;
+        return nil
     }
-    
+
     open func matchHandler(_ route: String) -> (([String:String]?) -> (Bool))? {
         var a = [String:String]()
         if let entry = findRouteEntry(route, params: &a) {
@@ -168,7 +168,7 @@ open class Router {
 
     fileprivate func findRouteEntry(_ route: String, params:inout [String:String]) -> RouteEntry? {
         let pathComponents = pathComponentsInRoute(route)
-        
+
         var subRoutes = routeMap
         for pathComponent in pathComponents {
             for (k, v) in subRoutes {
@@ -198,12 +198,12 @@ open class Router {
         }
         return nil
     }
-    
+
     fileprivate func paramsInRoute(_ route: String) -> [String: String] {
 
         var params = [String:String]()
         _ = findRouteEntry(route.stringByFilterAppSchemes(), params: &params)
-        
+
         if let loc = route.range(of: "?") {
             let paramsString = route.substring(from: route.index(after: loc.lowerBound))
             let paramArray = paramsString.components(separatedBy: "&")
@@ -216,9 +216,9 @@ open class Router {
         }
         return params
     }
-    
+
     fileprivate func pathComponentsInRoute(_ route: String) -> [String] {
-        var path:NSString = NSString(string: route)
+        var path: NSString = NSString(string: route)
         if let loc = route.range(of: "?") {
             path = NSString(string: route.substring(to: loc.lowerBound))
         }
@@ -231,18 +231,18 @@ open class Router {
         }
         return result
     }
-    
+
     open func removeAllRoutes() {
         routeMap.removeAllObjects()
     }
-    
-    open func routeURL(_ route:String) {
+
+    open func routeURL(_ route: String) {
         if let handler = matchHandler(route) {
             let params = paramsInRoute(route)
             _ = handler(params)
         }
     }
-    open func routeURL(_ route:String, navigationController: UINavigationController) {
+    open func routeURL(_ route: String, navigationController: UINavigationController) {
         if let vc = matchController(route) {
             navigationController.pushViewController(vc as! UIViewController, animated: true)
         }

@@ -10,13 +10,13 @@ import Foundation
 import UIKit
 
 class UserViewController: UIViewController {
-    var userId:String?
-    var username:String?
-    var password:String?
-    
+    var userId: String?
+    var username: String?
+    var password: String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let v = UIView(frame: UIScreen.main.bounds)
         v.backgroundColor = UIColor.white
 
@@ -25,19 +25,19 @@ class UserViewController: UIViewController {
             userIdLabel.text = "UserID: \(userId)"
             v.addSubview(userIdLabel)
         }
-        
+
         if let username = self.username {
             let usernameLabel = UILabel(frame: CGRect(x: 80, y: 120, width: 200, height: 20))
             usernameLabel.text = "Username: \(username)"
             v.addSubview(usernameLabel)
         }
-        
+
         if let password = self.password {
             let passwordLabel = UILabel(frame: CGRect(x: 80, y: 140, width: 200, height: 20))
             passwordLabel.text = "Password: \(password)"
             v.addSubview(passwordLabel)
         }
-        
+
         self.view.addSubview(v)
     }
 }

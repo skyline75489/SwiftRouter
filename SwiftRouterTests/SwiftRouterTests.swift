@@ -13,11 +13,11 @@ class SwiftRouterTests: XCTestCase {
     override func setUp() {
         super.setUp()
     }
-    
+
     override func tearDown() {
         super.tearDown()
     }
-    
+
     func testRouteController() {
         let router = Router.shared
 
@@ -27,30 +27,30 @@ class SwiftRouterTests: XCTestCase {
         router.map("/user/:userId/story", controllerClass: StoryListViewController.self)
 
         router.map("/anotherScreenFromStoryboard/:identifier", controllerClass: StoryboardViewController.self)
-        
+
         XCTAssertTrue(router.matchController("/about")!.isKind(of: AboutViewController.self))
         XCTAssertTrue(router.matchController("/user/1")!.isKind(of: UserViewController.self))
         XCTAssertTrue(router.matchController("/story/2")!.isKind(of: StoryViewController.self))
         XCTAssertTrue(router.matchController("/user/2/story")!.isKind(of: StoryListViewController.self))
         XCTAssertTrue(router.matchController("/anotherScreenFromStoryboard/1010")!.isKind(of: StoryboardViewController.self))
-        
+
         let vc = router.matchController("/user/1?username=hello&password=123") as! UserViewController
         XCTAssertEqual(vc.userId, "1")
         XCTAssertEqual(vc.username, "hello")
         XCTAssertEqual(vc.password, "123")
-        
+
         let storyboardController = router.matchControllerFromStoryboard("/anotherScreenFromStoryboard/1010", storyboardName: "MyStoryboard") as! StoryboardViewController
         XCTAssertEqual(storyboardController.identifier, "1010")
         // Test user defined runtime attribute value (set in storyboard)
         XCTAssertEqual(storyboardController.valueDefinedInStoryboard, "Just testing")
-        
+
         let storyboardController2 = router.matchControllerFromStoryboard("/anotherScreenFromStoryboard/1010") as! StoryboardViewController
         XCTAssertEqual(storyboardController2.valueDefinedInStoryboard, "Default storyboard text")
     }
-    
+
     func testRouteHandler() {
         let router = Router.shared
-        router.map("/user/add", handler: { (params:[String: String]?) -> (Bool) in
+        router.map("/user/add", handler: { (params: [String: String]?) -> (Bool) in
             XCTAssertNotNil(params)
             if let params = params {
                 XCTAssertEqual(params["username"], "hello")
@@ -58,13 +58,13 @@ class SwiftRouterTests: XCTestCase {
             }
             return true
         })
-        
+
         let handler = router.matchHandler("/user/add")
         XCTAssertNotNil(handler)
-        
+
         router.routeURL("/user/add?username=hello&password=123")
     }
-    
+
     func testRemoveAllHandlers() {
         let router = Router.shared
         router.map("/user/:userId", controllerClass: UserViewController.self)

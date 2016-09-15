@@ -10,6 +10,6 @@ import Foundation
 import UIKit
 
 class StoryboardViewController: UIViewController {
-    var valueDefinedInStoryboard:String?
-    var identifier:String?
+    var valueDefinedInStoryboard: String?
+    var identifier: String?
 }
