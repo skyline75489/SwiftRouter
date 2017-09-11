@@ -176,7 +176,7 @@ open class Router {
                 if subRoutes[pathComponent] != nil {
                     if pathComponent == pathComponents.last {
                         let d = subRoutes[pathComponent] as! NSMutableDictionary
-                        let entry = d["_entry"] as! RouteEntry
+                        let entry = d["_entry"] as? RouteEntry
                         return entry
                     }
                     subRoutes = subRoutes[pathComponent] as! NSMutableDictionary
