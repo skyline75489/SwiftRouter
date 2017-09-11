@@ -28,6 +28,7 @@ enum RouterError: Error {
     case schemeNotRecognized
     case entryAlreayExisted
     case invalidRouteEntry
+    case noMatchingRoute
 }
 
 extension RouterError: CustomStringConvertible, CustomDebugStringConvertible {
@@ -39,6 +40,8 @@ extension RouterError: CustomStringConvertible, CustomDebugStringConvertible {
             return "EntryAlreayExisted"
         case .invalidRouteEntry:
             return "InvalidRouteEntry"
+        case .noMatchingRoute:
+            return "NoMatchingRoute"
         }
     }
 
@@ -47,7 +50,7 @@ extension RouterError: CustomStringConvertible, CustomDebugStringConvertible {
     }
 }
 
-class RouteEntry {
+private class RouteEntry {
     var pattern: String? = nil
     var handler: (([String:String]?) -> Bool)? = nil
     var klass: AnyClass? = nil
@@ -68,7 +71,7 @@ extension RouteEntry: CustomStringConvertible, CustomDebugStringConvertible {
         if let h = self.handler {
             return "\(self.pattern ?? empty) -> \(h)"
         }
-        fatalError(RouterError.invalidRouteEntry.description)
+        return RouterError.invalidRouteEntry.description
     }
 
     var debugDescription: String {
@@ -132,41 +135,38 @@ open class Router {
     }
 
 
-    open func matchController(_ route: String) -> AnyObject? {
-        var params = paramsInRoute(route)
-        if let entry = findRouteEntry(route, params: &params) {
-            let name = NSStringFromClass(entry.klass!)
-            let clz = NSClassFromString(name) as! NSObject.Type
-            let instance = clz.init()
-            instance.setValuesForKeys(params)
-            return instance
-        }
-        return nil
+    open func matchController(_ route: String) throws -> AnyObject {
+        var params = try paramsInRoute(route)
+        let entry = try findRouteEntry(route, params: &params)
+        let name = NSStringFromClass(entry.klass!)
+        let clz = NSClassFromString(name) as! NSObject.Type
+        let instance = clz.init()
+        instance.setValuesForKeys(params)
+        return instance
     }
 
-    open func matchControllerFromStoryboard(_ route: String, storyboardName: String = "Storyboard") -> AnyObject? {
-        var params = paramsInRoute(route)
-        if let entry = findRouteEntry(route, params: &params) {
-            let name = NSStringFromClass(entry.klass!)
-            let clz = NSClassFromString(name) as! NSObject.Type
-            let storyboard = UIStoryboard(name: storyboardName, bundle: Bundle(for: clz))
-            let controllerIdentifier = name.components(separatedBy: ".").last!
-            let instance = storyboard.instantiateViewController(withIdentifier: controllerIdentifier)
-            instance.setValuesForKeys(params)
-            return instance
-        }
-        return nil
+    open func matchControllerFromStoryboard(_ route: String, storyboardName: String = "Storyboard") throws -> AnyObject {
+        var params = try paramsInRoute(route)
+        let entry = try findRouteEntry(route, params: &params)
+        let name = NSStringFromClass(entry.klass!)
+        let clz = NSClassFromString(name) as! NSObject.Type
+        let storyboard = UIStoryboard(name: storyboardName, bundle: Bundle(for: clz))
+        let controllerIdentifier = name.components(separatedBy: ".").last!
+        let instance = storyboard.instantiateViewController(withIdentifier: controllerIdentifier)
+        instance.setValuesForKeys(params)
+        return instance
     }
 
-    open func matchHandler(_ route: String) -> (([String:String]?) -> (Bool))? {
+    open func matchHandler(_ route: String) throws -> (([String:String]?) -> (Bool)) {
         var a = [String:String]()
-        if let entry = findRouteEntry(route, params: &a) {
-            return entry.handler
+        let entry = try findRouteEntry(route, params: &a)
+        guard let handler = entry.handler else {
+            throw RouterError.invalidRouteEntry
         }
-        return nil
+        return handler
     }
 
-    fileprivate func findRouteEntry(_ route: String, params:inout [String:String]) -> RouteEntry? {
+    fileprivate func findRouteEntry(_ route: String, params:inout [String:String]) throws -> RouteEntry {
         let pathComponents = pathComponentsInRoute(route)
 
         var subRoutes = routeMap
@@ -174,35 +174,38 @@ open class Router {
             for (k, v) in subRoutes {
                 // match handler first
                 if subRoutes[pathComponent] != nil {
-                    if pathComponent == pathComponents.last {
-                        let d = subRoutes[pathComponent] as! NSMutableDictionary
-                        let entry = d["_entry"] as! RouteEntry
-                        return entry
+                    if let d = subRoutes[pathComponent] as? NSMutableDictionary,
+                        pathComponent == pathComponents.last {
+                        if let entry = d[kRouteEntryKey] as? RouteEntry {
+                            return entry
+                        }
                     }
-                    subRoutes = subRoutes[pathComponent] as! NSMutableDictionary
-                    break
+                    if let dict = subRoutes[pathComponent] as? NSMutableDictionary {
+                        subRoutes = dict
+                        break
+                    }
                 }
                 if (k as AnyObject).hasPrefix(":") {
                     let s = String(describing: k)
                     let key = s.substring(from: s.index(s.startIndex, offsetBy: 1))
                     params[key] = pathComponent
                     if pathComponent == pathComponents.last {
-                        return (v as? NSDictionary)?[kRouteEntryKey] as? RouteEntry
+                        return (v as? NSDictionary)?[kRouteEntryKey] as! RouteEntry
                     }
                     subRoutes = subRoutes[s] as! NSMutableDictionary
                     break
                 } else {
-                    fatalError(RouterError.schemeNotRecognized.description)
+                    throw RouterError.schemeNotRecognized
                 }
             }
         }
-        return nil
+        throw RouterError.noMatchingRoute
     }
 
-    fileprivate func paramsInRoute(_ route: String) -> [String: String] {
+    fileprivate func paramsInRoute(_ route: String) throws -> [String: String] {
 
         var params = [String:String]()
-        _ = findRouteEntry(route.stringByFilterAppSchemes(), params: &params)
+        _ = try findRouteEntry(route.stringByFilterAppSchemes(), params: &params)
 
         if let loc = route.range(of: "?") {
             let paramsString = route.substring(from: route.index(after: loc.lowerBound))
@@ -236,15 +239,17 @@ open class Router {
         routeMap.removeAllObjects()
     }
 
-    open func routeURL(_ route: String) {
-        if let handler = matchHandler(route) {
-            let params = paramsInRoute(route)
-            _ = handler(params)
-        }
+    open func routeURL(_ route: String) throws {
+        let handler = try matchHandler(route)
+        let params = try paramsInRoute(route)
+        _ = handler(params)
     }
-    open func routeURL(_ route: String, navigationController: UINavigationController) {
-        if let vc = matchController(route) {
-            navigationController.pushViewController(vc as! UIViewController, animated: true)
+
+    open func routeURL(_ route: String, navigationController: UINavigationController) throws {
+        if let vc = try matchController(route) as? UIViewController {
+            navigationController.pushViewController(vc, animated: true)
+        } else {
+            throw RouterError.invalidRouteEntry
         }
     }
 }

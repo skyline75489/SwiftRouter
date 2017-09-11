@@ -22,7 +22,7 @@ class ViewController: UIViewController {
 
     func doRoute() {
         if let url = self.textField.text {
-            Router.sharedInstance.routeURL(url, navigationController: self.navigationController!)
+            try? Router.shared.routeURL(url, navigationController: self.navigationController!)
         }
     }
 
