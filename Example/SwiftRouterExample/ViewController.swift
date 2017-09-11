@@ -15,14 +15,14 @@ class ViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.routeButton.addTarget(self, action: "doRoute", forControlEvents: UIControlEvents.TouchDown)
-        self.clearButton.addTarget(self, action: "doClear", forControlEvents: UIControlEvents.TouchDown)
+        self.routeButton.addTarget(self, action: #selector(doRoute), for: UIControlEvents.touchDown)
+        self.clearButton.addTarget(self, action: #selector(doClear), for: UIControlEvents.touchDown)
         // Do any additional setup after loading the view, typically from a nib.
     }
 
     func doRoute() {
         if let url = self.textField.text {
-            Router.sharedInstance.routeURL(url, navigationController: self.navigationController!)
+            Router.shared.routeURL(url, navigationController: self.navigationController!)
         }
     }
 

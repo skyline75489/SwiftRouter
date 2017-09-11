@@ -176,7 +176,7 @@ open class Router {
                 if subRoutes[pathComponent] != nil {
                     if pathComponent == pathComponents.last {
                         let d = subRoutes[pathComponent] as! NSMutableDictionary
-                        let entry = d["_entry"] as! RouteEntry
+                        let entry = d["_entry"] as? RouteEntry
                         return entry
                     }
                     subRoutes = subRoutes[pathComponent] as! NSMutableDictionary
@@ -192,7 +192,8 @@ open class Router {
                     subRoutes = subRoutes[s] as! NSMutableDictionary
                     break
                 } else {
-                    fatalError(RouterError.schemeNotRecognized.description)
+                    NSLog("Route \(route) is not mapped to anything")
+                    return nil
                 }
             }
         }
