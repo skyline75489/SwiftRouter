@@ -18,6 +18,34 @@ class SwiftRouterTests: XCTestCase {
         super.tearDown()
     }
 
+    func testDuplicateSubpaths() {
+        let router = Router()
+        router.map("/users/:userId", controllerClass: UserViewController.self)
+
+        func testRoute(_ route: String, isKindOf clazz: AnyClass) {
+            if let controller = try? router.matchController(route) {
+                XCTAssertTrue(controller.isKind(of: clazz))
+            } else {
+                XCTFail("Route \(route) is not a mapped route")
+            }
+        }
+
+        func testRouteFails(_ route: String) {
+            if let _ = try? router.matchController(route) {
+                XCTFail("Route \(route) is not a mapped route")
+            }
+        }
+
+        testRoute("/users/foo", isKindOf: UserViewController.self)
+        // we can't add a path to /users
+        testRouteFails("/users")
+
+        router.map("/users/bar", controllerClass: AboutViewController.self)
+        testRoute("/users/foo", isKindOf: UserViewController.self)
+        testRoute("/users/bar", isKindOf: AboutViewController.self)
+        testRouteFails("/users")
+    }
+
     func testRouteController() {
         let router = Router.shared
 
@@ -28,24 +56,46 @@ class SwiftRouterTests: XCTestCase {
 
         router.map("/anotherScreenFromStoryboard/:identifier", controllerClass: StoryboardViewController.self)
 
-        XCTAssertTrue(router.matchController("/about")!.isKind(of: AboutViewController.self))
-        XCTAssertTrue(router.matchController("/user/1")!.isKind(of: UserViewController.self))
-        XCTAssertTrue(router.matchController("/story/2")!.isKind(of: StoryViewController.self))
-        XCTAssertTrue(router.matchController("/user/2/story")!.isKind(of: StoryListViewController.self))
-        XCTAssertTrue(router.matchController("/anotherScreenFromStoryboard/1010")!.isKind(of: StoryboardViewController.self))
+        func testRoute(_ route: String, isKindOf clazz: AnyClass) {
+            if let controller = try? router.matchController(route) {
+                XCTAssertTrue(controller.isKind(of: clazz))
+            } else {
+                XCTFail("Route \(route) is not a mapped route")
+            }
+        }
 
-        let vc = router.matchController("/user/1?username=hello&password=123") as! UserViewController
-        XCTAssertEqual(vc.userId, "1")
-        XCTAssertEqual(vc.username, "hello")
-        XCTAssertEqual(vc.password, "123")
+        testRoute("/about", isKindOf: AboutViewController.self)
+        testRoute("/about", isKindOf: AboutViewController.self)
+        testRoute("/user/1", isKindOf: UserViewController.self)
+        testRoute("/story/2", isKindOf: StoryViewController.self)
+        testRoute("/user/2/story", isKindOf: StoryListViewController.self)
+        testRoute("/anotherScreenFromStoryboard/1010", isKindOf: StoryboardViewController.self)
 
-        let storyboardController = router.matchControllerFromStoryboard("/anotherScreenFromStoryboard/1010", storyboardName: "MyStoryboard") as! StoryboardViewController
-        XCTAssertEqual(storyboardController.identifier, "1010")
-        // Test user defined runtime attribute value (set in storyboard)
-        XCTAssertEqual(storyboardController.valueDefinedInStoryboard, "Just testing")
+        testRoute("/user/1?username=hello&password=123", isKindOf: UserViewController.self)
+        if let obj = try? router.matchController("/user/1?username=hello&password=123"),
+            let vc = obj as? UserViewController {
+            XCTAssertEqual(vc.userId, "1")
+            XCTAssertEqual(vc.username, "hello")
+            XCTAssertEqual(vc.password, "123")
+        } else {
+            XCTFail("Not a valid route")
+        }
 
-        let storyboardController2 = router.matchControllerFromStoryboard("/anotherScreenFromStoryboard/1010") as! StoryboardViewController
-        XCTAssertEqual(storyboardController2.valueDefinedInStoryboard, "Default storyboard text")
+        if let obj = try? router.matchControllerFromStoryboard("/anotherScreenFromStoryboard/1010", storyboardName: "MyStoryboard"),
+            let storyboardController = obj as? StoryboardViewController {
+            XCTAssertEqual(storyboardController.identifier, "1010")
+            // Test user defined runtime attribute value (set in storyboard)
+            XCTAssertEqual(storyboardController.valueDefinedInStoryboard, "Just testing")
+        } else {
+            XCTFail("Not a valid route")
+        }
+
+        if let obj = try? router.matchControllerFromStoryboard("/anotherScreenFromStoryboard/1010"),
+            let storyboardController2 =  obj as? StoryboardViewController {
+            XCTAssertEqual(storyboardController2.valueDefinedInStoryboard, "Default storyboard text")
+        } else {
+            XCTFail("Not a valid route")
+        }
     }
 
     func testRouteHandler() {
@@ -59,18 +109,22 @@ class SwiftRouterTests: XCTestCase {
             return true
         })
 
-        let handler = router.matchHandler("/user/add")
+        let handler = try? router.matchHandler("/user/add")
         XCTAssertNotNil(handler)
 
-        router.routeURL("/user/add?username=hello&password=123")
+        do {
+            try router.routeURL("/user/add?username=hello&password=123")
+        } catch {
+            XCTFail("Route failed")
+        }
     }
 
     func testRemoveAllHandlers() {
         let router = Router.shared
         router.map("/user/:userId", controllerClass: UserViewController.self)
-        XCTAssertTrue(router.matchController("/user/1")!.isKind(of: UserViewController.self))
+        XCTAssertNotNil(try? router.matchController("/user/1"))
 
         router.removeAllRoutes()
-        XCTAssertNil(router.matchController("/user/1"))
+        XCTAssertNil(try? router.matchController("/user/1"))
     }
 }
