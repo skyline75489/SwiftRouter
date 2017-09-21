@@ -5,7 +5,7 @@ SwiftRouter
 [![Travis-CI](https://travis-ci.org/skyline75489/SwiftRouter.svg?branch=master)](https://travis-ci.org/skyline75489/SwiftRouter)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-A URL Router for iOS, written in Swift 3, inspired by [HHRouter](https://github.com/Huohua/HHRouter) and [JLRoutes](https://github.com/joeldev/JLRoutes).
+A URL Router for iOS, written in Swift, inspired by [HHRouter](https://github.com/Huohua/HHRouter) and [JLRoutes](https://github.com/joeldev/JLRoutes).
 
 ## Installation
 
