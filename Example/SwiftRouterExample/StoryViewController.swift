@@ -10,5 +10,5 @@ import Foundation
 import UIKit
 
 class StoryViewController: UIViewController {
-    var storyId: String?
+    @objc var storyId: String?
 }

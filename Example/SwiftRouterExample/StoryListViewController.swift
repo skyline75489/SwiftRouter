@@ -10,5 +10,5 @@ import Foundation
 import UIKit
 
 class StoryListViewController: UIViewController {
-    var userId: String?
+    @objc var userId: String?
 }

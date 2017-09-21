@@ -15,7 +15,7 @@ A URL Router for iOS, written in Swift 3, inspired by [HHRouter](https://github.
 | 1.0.7 | 2.2 | n/a |
 | 2.0.0 | 3.0 | n/a |
 | 2.1.0 | 3.0 | Breaking changes by adopting exception |
-
+| 3.0.0 | 4.0 | @objc should be used with properties |
 
 ### Carthage
 
@@ -43,9 +43,9 @@ Define properties in your custom ViewController:
 
 ```swift
 class UserViewController: UIViewController {
-    var userId:String?
-    var username:String?
-    var password:String?
+    @objc var userId:String?
+    @objc var username:String?
+    @objc var password:String?
 }
 ```
 

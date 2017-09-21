@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 class UserViewController: UIViewController {
-    var userId: String?
-    var username: String?
-    var password: String?
+    @objc var userId: String?
+    @objc var username: String?
+    @objc var password: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()

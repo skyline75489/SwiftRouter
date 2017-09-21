@@ -9,5 +9,5 @@
 import UIKit
 
 class AboutViewController: UIViewController {
-    var userId: String?
+    @objc var userId: String?
 }
