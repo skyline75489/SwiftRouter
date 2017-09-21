@@ -9,6 +9,14 @@ A URL Router for iOS, written in Swift 3, inspired by [HHRouter](https://github.
 
 ## Installation
 
+| SwiftRouter Version | Swift Version | Note |
+|:------------------:|:--------------------:|:-----|
+| Before 1.0.7 | 2.0 | n/a |
+| 1.0.7 | 2.2 | n/a |
+| 2.0.0 | 3.0 | n/a |
+| 2.1.0 | 3.0 | Breaking changes by adopting exception |
+
+
 ### Carthage
 
 SwiftRouter is compatible with [Carthage](https://github.com/Carthage/Carthage). Add it to your `Cartfile`:
