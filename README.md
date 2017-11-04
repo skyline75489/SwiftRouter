@@ -54,7 +54,7 @@ Map URL to ViewController:
 ```swift
 import SwiftRouter
 
-let router = Router.sharedInstance
+let router = Router.shared
 router.map("/user/:userId", controllerClass: UserViewController.self)
 ```
 
