@@ -83,7 +83,7 @@ extension String {
     func stringByFilterAppSchemes() -> String {
         for scheme in appUrlSchemes {
             if hasPrefix(scheme.appending(":")) {
-                return substring(from: index(startIndex, offsetBy: scheme.characters.count + 2))
+                return String(self[index(startIndex, offsetBy: scheme.count + 2)...])
             }
         }
         return self
@@ -187,7 +187,7 @@ open class Router {
                 }
                 if (k as AnyObject).hasPrefix(":") {
                     let s = String(describing: k)
-                    let key = s.substring(from: s.index(s.startIndex, offsetBy: 1))
+                    let key = String(s[s.index(s.startIndex, offsetBy: 1)...])
                     params[key] = pathComponent
                     if pathComponent == pathComponents.last {
                         return (v as? NSDictionary)?[kRouteEntryKey] as! RouteEntry
@@ -208,7 +208,7 @@ open class Router {
         _ = try findRouteEntry(route.stringByFilterAppSchemes(), params: &params)
 
         if let loc = route.range(of: "?") {
-            let paramsString = route.substring(from: route.index(after: loc.lowerBound))
+            let paramsString = String(route[route.index(after: loc.lowerBound)...])
             let paramArray = paramsString.components(separatedBy: "&")
             for param in paramArray {
                 let kv = param.components(separatedBy: "=")
@@ -223,7 +223,7 @@ open class Router {
     fileprivate func pathComponentsInRoute(_ route: String) -> [String] {
         var path: NSString = NSString(string: route)
         if let loc = route.range(of: "?") {
-            path = NSString(string: route.substring(to: loc.lowerBound))
+            path = NSString(string: String(route[..<loc.lowerBound]))
         }
         var result = [String]()
         for pathComponent in path.pathComponents {
