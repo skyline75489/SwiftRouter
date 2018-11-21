@@ -91,7 +91,7 @@ extension String {
 }
 
 open class Router {
-    open static let shared = Router()
+    public static let shared = Router()
 
     fileprivate let kRouteEntryKey = "_entry"
 
