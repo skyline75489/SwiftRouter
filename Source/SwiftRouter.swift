@@ -69,7 +69,7 @@ extension RouteEntry: CustomStringConvertible, CustomDebugStringConvertible {
             return "\(self.pattern ?? empty) -> \(k)"
         }
         if let h = self.handler {
-            return "\(self.pattern ?? empty) -> \(h)"
+            return "\(self.pattern ?? empty) -> \(String(describing: h))"
         }
         return RouterError.invalidRouteEntry.description
     }
