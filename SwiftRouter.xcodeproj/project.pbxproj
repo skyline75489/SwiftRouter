@@ -182,11 +182,11 @@
 			};
 			buildConfigurationList = 2D76132E1BB415CC0091035E /* Build configuration list for PBXProject "SwiftRouter" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 2D76132A1BB415CC0091035E;
 			productRefGroup = 2D7613351BB415CC0091035E /* Products */;
